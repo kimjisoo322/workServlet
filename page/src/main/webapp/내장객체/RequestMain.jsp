@@ -15,17 +15,23 @@
 	<!--	 HTTP 상태 404 – 페이지를 찾을 수 없음
 	     		-> 파일이 없거나 파일 경로가 일치하지 않는 경우 
 	     			URL 경로를 확인해봐야 한다.!!!
-	     			
+	     	
+	     	url로 호출 		: 무조건 get 방식으로 호출
+	     	http://  	    : 프로토콜 = 통신규약
+	     	www.naver.com   : 도메인(ip, port) = 웹서버를 찾아간다. 
+	     	경로				: 파일경로, 매핑정보
 	     		
 	 -->
-	 <!-- 	링크로 요청한 방법  -->
-	<a href = "requestWebInfo.jsp?eng=hello&han=안녕">GET방식요청</a>
+	 <!-- 	링크로 요청한 방법  
+	  ﻿ : url로 호출하는 것은 method 지정을 못함 -> 그렇기에 get방식으로만 가능  
+	  -->
+	<a href = "requestWebInfo.jsp?eng=hello&dan=안녕">GET방식요청</a>
 	
 	
-	
+	<!--  post 방식으로 전달하면 한글의 경우 깨질 수 있음  -->
 	<form action="requestWebInfo.jsp" method ="post">
 		영어 : <input type = "text" name = "eng" value = "Bye"><br>
-		한글 : <input type = "text" name = "han" value = "잘가"><br>
+		한글 : <input type = "text" name = "dan" value = "잘가"><br>
 		<input type = "submit" value = "post 전송">	
 	</form>
 	
@@ -47,6 +53,15 @@
         <br />
         <input type="submit" value="전송하기" />
 	</form>
+	
+	<h2>3. HTTP 요청 헤더 정보 읽기</h2>
+	<a href = "RequestHeader.jsp"> 요청 헤더정보 읽기</a>
+	
+	
+	
+	
+	
+	
 	
 	
 </body>
