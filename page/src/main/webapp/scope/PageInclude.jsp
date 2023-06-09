@@ -12,8 +12,8 @@
  <!-- include 된 파일에서 page 영역 읽어오기 -->	
 	<ul>
 		<li>String : <%=pageContext.getAttribute("page") %></li>
-		<li>int : <%=(Integer)pageContext.getAttribute("page_int") %></li>
-		<li>Person 이름 : <%=(Person)pageContext.getAttribute("pagePerson")%></li>
+		<li>int : <%=pageContext.getAttribute("page_int") %></li>
+		<li>Person 이름 : <%=pageContext.getAttribute("pagePerson")%></li>
 	</ul>
 </body>
 </html>

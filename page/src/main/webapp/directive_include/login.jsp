@@ -10,6 +10,7 @@
 <form action="loginAction.jsp" method="post">
 
 	<%
+	
 		String name = request.getParameter("name");
 		if(name != null && !name.equals("")){
 			out.print("<h1>" + name + "님 환영합니다.</h1>"+
