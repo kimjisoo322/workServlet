@@ -1,3 +1,5 @@
+<%@page import="dto.Member"%>
+<%@page import="dao.MemberDao"%>
 <%@page import="util.CookieManager"%>
 <%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -13,7 +15,11 @@
 	<%
 		// name속성의 값을 매개값으로 넘겨주면 value속성의 값을 반환 합니다.
 		String id = request.getParameter("userid");
-		String pw = request.getParameter("userpw");
+		String pass = request.getParameter("userpw");
+		
+		// 멤버 객체를 생성 
+		MemberDao dao = new MemberDao();
+		Member member = dao.login(id, pass);
 		
 		// 아이디 저장 체크박스
 		String saveYN = request.getParameter("save_check");
@@ -22,12 +28,9 @@
 		// 아이디 저장하기 체크박스에 체크가 되었다면 쿠키에 아이디를 저장.
 		// 문자열로 비교하면 null 체크안해됨
 		if("Y".equals(saveYN)){
-			
 			// 쿠키 메서드 
 			// cookiemanager를 이용해 쿠키를 생성하고 응답객체에 담아준다. 
 			CookieManager.makeCookie(response, "userid", id, 3600);
-			
-		
 			
 			// 쿠키 생성해서 reponse에 담아주기 
 			// id는 userid, 사용자 아이디
@@ -43,14 +46,11 @@
 			*/
 		}
 		
-		
-		if("abc".equals(id)
-				&& "123".equals(pw)){
-			
+		// DB 조회 결과 member 객체에서 > id/pw가 일치하는 회원이 있으면 로그인 성공
+		if(member!= null && !"".equals(member.getName())){
 			out.print("로그인 성공");
 			response.sendRedirect("login.jsp?name="+id);
 	%>
-
 			<h1>로그인 성공</h1>
 	<%
 		} else {

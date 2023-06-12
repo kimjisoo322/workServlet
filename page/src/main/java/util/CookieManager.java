@@ -41,9 +41,9 @@ public class CookieManager {
 				break;
 			}
 		}
-		}
-		return cookieValue;
 	}
+		return cookieValue;
+}
 		
 	//(메서드생성) 매개변수로 쿠키이름을 받아서 쿠키 삭제 
 	
