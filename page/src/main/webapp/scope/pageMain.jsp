@@ -27,7 +27,7 @@
 	
 	<%
 		// object 타입으로 반환되므로 형변환이 필요!
-		String page_str = pageContext.getAttribute("page").toString();
+		String page_str = (String)pageContext.getAttribute("page");
 		int page_int = (Integer)pageContext.getAttribute("page_int");
 		Person page_person = (Person)pageContext.getAttribute("pagePerson");
 	%>
