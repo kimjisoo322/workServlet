@@ -9,7 +9,7 @@ public class Board {
 	private String content;
 	private String id;
 	private String postdate;
-	private String visicount;
+	private String visitcount;
 	
 	public Board(String num, String title, String content, String id, String postdate, String visicount) {
 		this.num = num;
@@ -17,7 +17,7 @@ public class Board {
 		this.content = content;
 		this.id = id;
 		this.postdate = postdate;
-		this.visicount = visicount;
+		this.visitcount = visicount;
 	}
 
 	public String getNum() {
@@ -60,12 +60,12 @@ public class Board {
 		this.postdate = postdate;
 	}
 
-	public String getVisicount() {
-		return visicount;
+	public String getVisitcount() {
+		return visitcount;
 	}
 
-	public void setVisicount(String visicount) {
-		this.visicount = visicount;
+	public void setVisitcount(String visitcount) {
+		this.visitcount = visitcount;
 	}
 
 

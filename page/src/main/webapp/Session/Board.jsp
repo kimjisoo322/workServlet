@@ -12,19 +12,22 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%
-	BoardDao bdao = new BoardDao();
-	List<Board> list = bdao.getList();
 
-	int totalCnt = bdao.getTotalCnt();
-	
+<%
 	String searchField = request.getParameter("searchField");
 	String searchWord = request.getParameter("searchWord");
 	
-	// 검색어가 null이 아니면 검색 기능을 추가!! 
-	out.print(searchWord);
-	out.print(searchField);
+	// 검색어를 입력하게 되면 상단에 보여줌 
+	if(searchField != null){
+	out.print("입력하신 검색어는 : " + searchWord + "입니다." + "<br>");
+	}
 	
+	BoardDao bdao = new BoardDao();
+	List<Board> list = bdao.getList(searchField, searchWord);
+
+	// 총 건수  출력
+	int totalCnt = bdao.getTotalCnt(searchField,searchWord);
+	 
 %>
 
 <jsp:include page="Link.jsp" />
@@ -42,7 +45,7 @@
 
 <h4> < 목록보기(List) > </h4>
 
-총건수 : <%=totalCnt %>
+총건수 : <%=totalCnt %>건 
 
 <form>
 	<table border ='1' width ="90%">
@@ -51,9 +54,10 @@
 			<select name ="searchField">
 				<option value = "title">제목</option>
 				<option value = "content">내용</option>
+				<option value = "ID">작성자</option>
 			</select>
 			
-			<input type="text" name = "searchWord" value ="<%=searchWord%>">
+			<input type="text" name = "searchWord" value ="<%=(searchWord == null)? "": searchWord %>">
 			<input type ="submit" value ="검색하기">
 		</td>
 		</tr>
@@ -63,9 +67,7 @@
 
 <!-- 게시판 목록 보여주기 -->
 <table border = '1' width ="90%">
-	<tr>
-		<td>게시판</td>
-	</tr>
+
 	<tr>
 		<th>번호</th>
 		<th>제목</th>
@@ -85,26 +87,34 @@
 	for(Board board : list) {
 	%>
         <tr>
-            <td><%= board.getNum() %></td>
-            <td><%= board.getTitle()%></td>
-            <td><%= board.getContent() %></td>
-            <td><%= board.getId() %></td>
-            <td><%= board.getPostdate() %></td>
-            <td><%= board.getVisicount() %></td>
+            <td align ="center"><%= board.getNum() %></td>
+            <td align ="center"><a href = "View.jsp?num=<%= board.getNum() %>"><%= board.getTitle()%></a></td>
+            <td align ="center"><%= board.getContent() %></td>
+            <td align ="center"><%= board.getId() %></td>
+            <td align ="center"><%= board.getPostdate() %></td>
+            <td align ="center"><%= board.getVisitcount() %></td>
         </tr>
         
 	<% }%>	
 	<% }%>
 </table>
 	
+<!--  로그인한 사람만 글쓰기 버튼을 클릭할 수 있음 -->
+<%
+	if(session.getAttribute("member") != null){
+%>
 <!--  글쓰기 버튼 -->
 <table border ='1' width ="90%">
 	<tr>
 		<td align = "right">
-		<input type ="submit" value ="글쓰기">
+		<input type ="submit" value ="글쓰기" onclick ="location.href = 'Write.jsp'">
 		</td>
 	</tr>
 </table>
+<%} %>
+
+
+
 
 
 </body>

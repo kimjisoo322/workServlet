@@ -21,7 +21,7 @@
 	// 로그인 되었는지 확인
 	String name = "";
 	if(session.getAttribute("member") != null)
-	/* if(session.getAttribute("UserId") == null) */ {
+	/* if(session.getAttribut.e("UserId") == null) */ {
 		Member member =(Member)session.getAttribute("member");	
 		name = member.getName();
 %>		 
