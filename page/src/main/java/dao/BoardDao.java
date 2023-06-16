@@ -8,16 +8,96 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.spi.DirStateFactory.Result;
 
 import common.ConnectionUtil;
 import dto.Board;
+import dto.Criteria;
 
 public class BoardDao {
 
 	public BoardDao() {
 	}
+	
+	
+	// 페이징처리
+		public List<Board> getListPage(Criteria criteria) {
+			List<Board> list = new ArrayList<Board>();
+			Board board = null;
 
+			String sql = ""
+					+ "SELECT * FROM ("
+					+ "SELECT ROWNUM RN, T.* FROM ("
+					+ "SELECT BOARD.* FROM BOARD ";
+			if (criteria.getSearchWorld() != null && !"".equals(criteria.getSearchWorld())) {
+				sql += "WHERE " + criteria.getSearchField() + " Like '%" + criteria.getSearchWorld() + "%' ";
+			}
+			
+			sql += "order by num desc "
+					+ "  )T"
+					+ " )"
+					+ " WHERE RN BETWEEN "
+					+ criteria.getStartNo()
+					+ " AND "
+					+ criteria.getEndNo();
+
+			try (Connection conn = ConnectionUtil.getConnection(); Statement stmt = conn.createStatement();) {
+				ResultSet rs = stmt.executeQuery(sql);
+
+				while (rs.next()) {
+					board = new Board();
+					
+					board.setNum(rs.getString("NUM"));
+					board.setTitle(rs.getString("TITLE"));
+					board.setContent(rs.getString("CONTENT"));
+					board.setId(rs.getString("ID"));
+					board.setPostdate(rs.getString("POSTDATE"));
+					board.setVisitcount(rs.getString("VISITCOUNT"));
+					
+					list.add(board);
+					 
+				}
+				rs.close();
+			} catch (SQLException e) {
+				System.err.println(e.getMessage());
+			}
+			return list;
+		}
+
+			
+	// 게시글 삭제 처리
+	public int delete(String num) {
+		int res = 0;
+		String sql = "DELETE FROM BOARD WHERE NUM = ?";
+		try (
+				Connection conn = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				) {
+			pstmt.setString(1, num);
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return res;
+	}
+	
+	
+	// 게시글 수정 쿼리 
+	public int update(Board board) {
+		int res = 0;
+		String sql = "UPDATE BOARD SET TITLE = '"+board.getTitle()+"' , CONTENT = '"+board.getContent()+"' WHERE NUM = ?";
+		System.out.println(sql);
+		try (
+				Connection conn = ConnectionUtil.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(sql);
+				){
+				pstmt.setString(1, board.getNum());
+				res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return res;
+	}
+	
 	/*
 	 * 조회수 업데이트 게시물의 조회수를 1 증가시킴
 	 */
@@ -25,7 +105,8 @@ public class BoardDao {
 		int res = 0;
 		String sql = "UPDATE BOARD SET VISITCOUNT = VISITCOUNT+1 WHERE NUM = ?";
 
-		try (Connection conn = ConnectionUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+		try (Connection conn = ConnectionUtil.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, num);
 			res = pstmt.executeUpdate();
 
@@ -43,7 +124,8 @@ public class BoardDao {
 		if (num == null || "".equals(num)) {
 			return null;
 		}
-		try (Connection conn = ConnectionUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql);) {
+		try (Connection conn = ConnectionUtil.getConnection(); 
+			PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, num);
 			ResultSet rs = pstmt.executeQuery();
 
@@ -90,15 +172,17 @@ public class BoardDao {
 
 		return res;
 	}
+	
+	
 
 	/**
 	 * 게시물 개수를 반환합니다.
 	 **/
-	public int getTotalCnt(String searchField, String searchWord) {
+	public int getTotalCnt(Criteria criteria) {
 		int totalCnt = 0;
 		String sql = "SELECT COUNT(*) " + "FROM BOARD ";
-		if (searchWord != null && !"".equals(searchWord)) {
-			sql += "WHERE " + searchField + " Like '%" + searchWord + "%' ";
+		if (criteria.getSearchWorld() != null && !"".equals(criteria.getSearchWorld())) {
+			sql += "WHERE " + criteria.getSearchField() + " Like '%" + criteria.getSearchWorld() + "%' ";
 		}
 		try (Connection conn = ConnectionUtil.getConnection(); Statement stmt = conn.createStatement();) {
 			ResultSet rs = stmt.executeQuery(sql);

@@ -42,7 +42,7 @@
 			<td>번호</td>
 			 <td align ="center"><%= board.getNum() %></td>
 			<td>작성자</td>
-			 <td align ="center"><%= board.getContent() %></td>
+			 <td align ="center"><%= board.getId() %></td>
 		</tr>
 		
 		<tr>
@@ -64,14 +64,17 @@
 		
 		<tr>
 			<td colspan = '4' align = "center">
-				<button type="button" onclick="location.href='Board.jsp'">
+			<%
+				String pageNo = (request.getParameter("pageNo") == null) ? "1" : request.getParameter("pageNo");
+			%>
+				<button type="button" onclick="location.href='Board.jsp?pageNo=<%=pageNo%>'">
                     목록 보기</button>
                 <%
                 	     if(session.getAttribute("UserId") != null){
                  %>
 
-                  <button type="button" onclick="location.href='Edit.jsp?num=<%=board.getNum()%>'">수정하기</button>
-                  <button type="button" onclick="location.href='';">삭제하기</button>
+                  <button type="button" onclick="location.href='EditLocation.jsp?num=<%=board.getNum()%>&pageNo=<%=pageNo%>'">수정하기</button>
+                  <button type="button" onclick="deletePost()">삭제하기</button>
                 	    	 
                <%  }  else {
                }
