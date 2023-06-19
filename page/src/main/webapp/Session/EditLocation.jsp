@@ -23,11 +23,14 @@
 			// 게시글이 존재하지 않으면 더이상 실행 할 필요가 없어서 return 
 			return;
 		}
+	 	
+    	String pageNo = (request.getParameter("pageNo") == null) ? "1" : request.getParameter("pageNo");
+   
 	%>
 <h2> 수정하기 </h2>
 
 	
-<form name="writeFrm" method="post" action="EditProcess.jsp">
+<form name="writeFrm" method="post" action="EditProcess.jsp?num=<%=board.getNum()%>&pageNo=<%=pageNo%>">
 	<input type = "text" name = "num" value =<%=board.getNum()%>></input>
 	<table border ='1' width = "90%">
 	
@@ -52,10 +55,6 @@
             <td colspan="4" align="center">
                 <button type="submit">수정 하기</button>
                 <button type="reset">다시 입력</button>
-                <%
-                	String pageNo = (request.getParameter("pageNo") == null) ? "1" : request.getParameter("pageNo");
-                %>
-                
                 <button type="button" onclick="location.href='Board.jsp?num=<%=board.getNum()%>&pageNo=<%=pageNo%>'">
                     목록 보기</button>
     	  </td>

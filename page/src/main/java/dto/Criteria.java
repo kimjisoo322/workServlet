@@ -25,7 +25,7 @@ public class Criteria {
 	
 	// pageNo는 int로 생성했지만 파라메터로 받을 때는 문자열로 받아오기 때문에 String pageNoStr을 만들어 놓은 것
 	// 원래 pageNo는 int이기 때문에 생성자 안에서 pageNoStr을 int로 정수변환해서 값은 int로 세팅하지만 
-	// 생성자로는 String 타입으로 주고 있기 때문에 밖에서 사용할 때 파라메터 (String)으로 쓸 수 있는 것.
+	// 생성자로는 String 타입으로 주고 있기 때문에 밖에서 사용할 때 파라메터(String)으로 쓸 수 있는 것.
 	public Criteria(String searchField, String searchWorld, String pageNoStr) {
 		if(searchWorld != null) {
 			this.searchField = searchField;

@@ -19,6 +19,8 @@
 	String content = request.getParameter("content");
 	String id = (session.getAttribute("UserId") == null)? "":(String)session.getAttribute("UserId");
 	
+	String pageNo = request.getParameter("pageNo") == null ? "1" : request.getParameter("pageNo");
+	
 	NewBoarderDao nbo = new NewBoarderDao();
 	Board board = new Board();
 
@@ -30,7 +32,7 @@
 	int res = nbo.updatePost(board);
 	
 	if(res > 0){
-		JSFunction.alertLocation("게시글 수정 완료되었습니다.", "../8게시판/View.jsp?num="+num, out);
+		JSFunction.alertLocation("게시글 수정 완료되었습니다.", "../8게시판/View.jsp?num="+board.getNum()+"&pageNo="+pageNo, out);
 	}else{
 		JSFunction.alertBack("게시글 수정 오류", out);
 	}

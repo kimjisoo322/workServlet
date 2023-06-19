@@ -1,3 +1,4 @@
+<%@page import="dto.Criteria"%>
 <%@page import="common.JSFunction"%>
 <%@page import="dao.BoardDao"%>
 <%@page import="dto.Board"%>
@@ -12,8 +13,11 @@
 <body>
 <jsp:include page="Link.jsp" />
 <jsp:include page="isLogin.jsp"></jsp:include>
+
 <%
-	/* request.setCharacterEncoding("utf-8"); */
+	 request.setCharacterEncoding("utf-8");
+	String pageNo = request.getParameter("pageNo") == null ? "1" : request.getParameter("pageNo");
+	
 
 	//1. 폼값을 입력받아서 DTO 객체 생성
 	String num = request.getParameter("num");
@@ -25,7 +29,7 @@
 	
 	BoardDao bdao = new BoardDao();
 	Board board = new Board();
-
+	
 	// 2. DTO 객체를 생성 > 처음에는 비어있어서 set으로 넣어줌 
 	board.setTitle(title);
 	board.setContent(content);
@@ -36,7 +40,7 @@
 	
 	// 3. 수정성공 : 리스트 페이지로 이동 / 실패 : 메세지 처리
 	if(upres > 0){
-		JSFunction.alertLocation("게시글이 수정되었습니다.", "View.jsp?num=" + board.getNum() , out);
+		JSFunction.alertLocation("게시글이 수정되었습니다.", "View.jsp?num="+ board.getNum()+"&pageNo=" +pageNo , out);
 		} else{
 			JSFunction.alertBack("수정 중 오류가 발생하였습니다.", out);
 	 	} 

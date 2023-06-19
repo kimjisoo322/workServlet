@@ -18,22 +18,24 @@ public class NewBoarderDao {
 
 	public NewBoarderDao() {
 	}
-	
+	// 게시글 수정 쿼리
 	public int updatePost(Board board) {
-		int res = 0;
-		String sql = "update board set title = '"+board.getTitle()+"' , content = '"+board.getContent()+"' where num = ?";
-		System.out.println(sql);
-		try (
-				Connection conn = ConnectionUtil.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement(sql);
-				) {
-				pstmt.setString(1, board.getNum());
-				res = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.err.println(e.getMessage());
-		}
-		return res;
+	    int res = 0;
+	    String sql = "UPDATE BOARD SET TITLE = ?, CONTENT = ? WHERE NUM = ?";
+	    try (
+	        Connection conn = ConnectionUtil.getConnection();
+	        PreparedStatement pstmt = conn.prepareStatement(sql);
+	    ) {
+	        pstmt.setString(1, board.getTitle());
+	        pstmt.setString(2, board.getContent());
+	        pstmt.setString(3, board.getNum());
+	        res = pstmt.executeUpdate();
+	    } catch (SQLException e) {
+	        System.err.println(e.getMessage());
+	    }
+	    return res;
 	}
+
 	/**
 	 * 게시물 개수를 반환(totalCnt)
 	 **/

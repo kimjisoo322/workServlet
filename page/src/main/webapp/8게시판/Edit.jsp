@@ -25,9 +25,9 @@
 		JSFunction.alertBack("게시글이 존재하지 않습니다.", out);
 		return;		
 	}
+	String pageNo = request.getParameter("pageNo") ==null ? "1" : request.getParameter("pageNo");
 %>
-<form action = "EditAction.jsp">
-	<input type = "text" name = "num" value = <%=board.getNum() %>></input>
+<form action = "EditAction.jsp?num=<%=board.getNum()%>&pageNo=<%=pageNo%>">
 	    <table border="1" width="90%">
         <tr>
             <td>제목</td>
@@ -47,10 +47,7 @@
             <td colspan="2" align="center">
                 <button type="submit">작성 완료</button>
                 <button type="reset">다시 입력</button>
-                <%
-                	String pageNo = (request.getParameter("pageNo") == null) ? "1" : request.getParameter("pageNo");
-                %>
-                <button type="button" onclick="location.href='List.jsp?pageNo=<%=pageNo%>'">목록 보기</button>
+                <button type="button" onclick="location.href='List.jsp??num=<%=board.getNum()%>&pageNo=<%=pageNo%>'">목록 보기</button>
             </td>
         </tr>
     </table>

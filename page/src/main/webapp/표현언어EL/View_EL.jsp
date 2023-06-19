@@ -10,9 +10,7 @@
 <title>Insert title here</title>
 <% 
 	BoardDao bdao = new BoardDao();
-
-	String pageNo = (request.getParameter("pageNo") == null) ? "1" : request.getParameter("pageNo");
-
+	
 	// 조회수 증가 
 	bdao.updateVisit(request.getParameter("num"));
 	
@@ -24,7 +22,12 @@
 		// 게시글이 존재하지 않으면 더이상 실행 할 필요가 없어서 return 
 		return;
 	} 
+ 	
+ 	// 영역에 저장
+ 	request.setAttribute("board", board);
+ 	
 %> 
+
 <script>
 	function deletePost(){
 		var result = confirm("삭제 하시겠습니까?");
@@ -37,36 +40,38 @@
 </head>
 <body>
 
-<jsp:include page="Link.jsp" />
+<jsp:include page="../Session/Link.jsp" />
 <h2> 상세보기 </h2>
 	<table border ='1' width = "90%">
 		<tr>
 			<td>번호</td>
-			 <td align ="center"><%= board.getNum() %></td>
+			 <td align ="center">${board.num }</td>
 			<td>작성자</td>
-			 <td align ="center"><%= board.getId() %></td>
+			 <td align ="center">${board.id }</td>
 		</tr>
 		
 		<tr>
 			<td>작성일</td>
-			<td align ="center"><%= board.getPostdate() %></td>
+			<td align ="center">${board.postdate }</td>
 			<td>조회수</td>
-			 <td align ="center"><%= board.getVisitcount() %></td>
+			 <td align ="center">${board.visitcount }</td>
 		</tr>
 		
 		<tr>
 			<td >제목</td>
-			<td colspan = "3" align ="center"><%= board.getTitle()%></td>
+			<td colspan = "3" align ="center">${board.title }</td>
 		</tr>
 		
 		<tr>
 			<td>내용</td>
-			 <td colspan = "3" align ="center" height = "100px"><%= board.getContent() %></td>
+			 <td colspan = "3" align ="center" height = "100px">${board.content }</td>
 		</tr>
 		
 		<tr>
 			<td colspan = '4' align = "center">
-			
+			<%
+				String pageNo = (request.getParameter("pageNo") == null) ? "1" : request.getParameter("pageNo");
+			%>
 				<button type="button" onclick="location.href='Board.jsp?pageNo=<%=pageNo%>'">
                     목록 보기</button>
                 <%
