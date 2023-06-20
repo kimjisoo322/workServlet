@@ -10,7 +10,7 @@
 </head>
 <body>
 
-<%@include file = "../Session/isLogin.jsp" %>
+<%@include file = "../6Session/isLogin.jsp" %>
 
 <%
 	request.setCharacterEncoding("utf-8");

@@ -36,7 +36,7 @@
 </head>
 <body>
 
-<jsp:include page="../Session/Link.jsp"></jsp:include>
+<jsp:include page="../6Session/Link.jsp"></jsp:include>
 <h2>회원제 게시판 - 상세 보기(View)</h2>
 
     <table border="1" width="90%">

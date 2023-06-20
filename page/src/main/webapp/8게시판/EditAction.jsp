@@ -11,7 +11,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="../Session/isLogin.jsp"></jsp:include>
+<jsp:include page="../6Session/isLogin.jsp"></jsp:include>
 <%
 	
 	String num = request.getParameter("num");

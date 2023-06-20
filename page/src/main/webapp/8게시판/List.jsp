@@ -13,7 +13,7 @@
 <title>Second 게시판</title>
 </head>
 <body>
-<%@ include file ="../Session/Link.jsp" %>
+<%@ include file ="../6Session/Link.jsp" %>
 <%
 	// 검색 조건
 	String searchField = request.getParameter("searchField");
@@ -115,7 +115,7 @@
 <table border="1" width="90%">
 	<tr>
         <td align="center">
-            <%@ include file = "../Session/PageNav.jsp" %>
+            <%@ include file = "../6Session/PageNav.jsp" %>
         </td>
         </tr>
 </table>

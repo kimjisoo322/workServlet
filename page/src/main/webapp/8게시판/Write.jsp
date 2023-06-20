@@ -8,7 +8,7 @@
 <title>회원제 게시판</title>
 </head>
 <body>
-<jsp:include page="../Session/Link.jsp" />
+<jsp:include page="../6Session/Link.jsp" />
 
 
 <h2>회원제 게시판 - 글쓰기(Write)</h2>

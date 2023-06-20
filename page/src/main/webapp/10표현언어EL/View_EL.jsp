@@ -40,7 +40,7 @@
 </head>
 <body>
 
-<jsp:include page="../Session/Link.jsp" />
+<jsp:include page="../6Session/Link.jsp" />
 <h2> 상세보기 </h2>
 	<table border ='1' width = "90%">
 		<tr>
