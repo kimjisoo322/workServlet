@@ -217,7 +217,8 @@ public class BoardDao {
 		}
 		sql += "order by num desc";
 
-		try (Connection conn = ConnectionUtil.getConnection(); Statement stmt = conn.createStatement();) {
+		try (Connection conn = ConnectionUtil.getConnection(); 
+				Statement stmt = conn.createStatement();) {
 			ResultSet rs = stmt.executeQuery(sql);
 
 			while (rs.next()) {

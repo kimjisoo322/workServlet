@@ -55,6 +55,7 @@
     </table>
     </form>
     총 건수 :<%= totalCnt %>건
+    
     <!-- 게시물 목록 테이블(표) --> 
     <table border="1" width="90%">
         <!-- 각 칼럼의 이름 --> 
