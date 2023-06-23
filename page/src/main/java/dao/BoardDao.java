@@ -18,7 +18,7 @@ public class BoardDao {
 	public BoardDao() {
 	}
 	
-	
+	// 휴
 	// 페이징처리
 		public List<Board> getListPage(Criteria criteria) {
 			List<Board> list = new ArrayList<Board>();
