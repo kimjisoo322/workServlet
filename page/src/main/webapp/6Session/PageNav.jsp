@@ -26,17 +26,21 @@
 	  <input type="button" value="<<" onclick="go(1)">
 	</c:if>
 	
-	<c:if test="${pageDto.prev}">
-	  <input type="button" value="<" onclick="go(${pageDto.startNo - 1})">
+		<!-- 이전버튼 -->
+	<c:if test="${pageDto.prev }">
+		<input type='button' value='<' onclick='go(${pageDto.startNo-1})'>
 	</c:if>
 	
-	<c:forEach begin="${pageDto.startNo}" end="${pageDto.endNo}" varStatus="loop">
-	  <input type="button" value="${loop.index}" onclick="go(${loop.index})">
+	<!-- 페이지번호 출력 -->
+	<c:forEach begin="${pageDto.startNo }" end="${pageDto.endNo }" var="i">
+		<input type='button' value='${i }' onclick='go(${i})'>
 	</c:forEach>
 	
-	<c:if test="${pageDto.next}">
-	  <input type="button" value=">" onclick="go(${pageDto.endNo + 1})">
+	<!-- 다음버튼 -->
+	<c:if test="${pageDto.next }">
+		<input type='button' value='>' onclick='go(${pageDto.endNo+1})'>		
 	</c:if>
+
 	
 	<c:if test="${pageDto.next}">
 	  <input type="button" value=">>" onclick="go(${pageDto.realEnd + 1})">

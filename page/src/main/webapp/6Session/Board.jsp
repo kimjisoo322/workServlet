@@ -33,6 +33,7 @@
 	if(searchField != null){
 	out.print("입력하신 검색어는 : " + searchWord + "입니다." + "<br>");
 	}
+	
 	// 총 건수  출력
 	int totalCnt = bdao.getTotalCnt(criteria);
 	 
@@ -131,7 +132,7 @@
 <table border ='1' width ="90%">
 	<tr>
 		<td align = "center">
-			<%@include file ="PageNav.jsp"%>
+			<%@include file ="../6Session/PageNav.jsp"%>
 		</td>
 	</tr>
 </table>

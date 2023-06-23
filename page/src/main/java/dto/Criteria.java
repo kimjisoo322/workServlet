@@ -32,7 +32,7 @@ public class Criteria {
 			this.searchWorld = searchWorld;
 		}
 		// 페이지 번호가 있으면 페이지 번호를 문자열에서 정수로 전환해서 값 세팅 / 페이지 번호가 없으면 1로 처리
-		if(pageNoStr != null) {
+		if(pageNoStr != null && !"".equals(pageNoStr)) {
 			pageNo = Integer.parseInt(pageNoStr);
 			if(pageNo > 0) {
 				this.pageNo = pageNo;

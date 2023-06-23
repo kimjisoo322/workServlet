@@ -17,15 +17,15 @@
 <h2> DB에 등록된 파일 목록 보기 </h2>
  <a href= "FileUpload.jsp"> 파일등록하기</a>
 
-<%
-	FileDao dao = new FileDao();
-	List<FileDto> list = dao.getFilelist();
-	
-	out.print("총 :" + list.size() + "건" +"<br>");
+<%-- <%
+	out.print("req : " + request.getAttribute("list"));
 	
 %>
+<p>req : ${requestScope.list }</p> --%>
 
-<c:set var="fileList" value="<%=list %>"></c:set>
+<a href="${pageContext.request.contextPath}/12파일업로드/FielServlet"> FielServlet 바로가기</a>
+
+<c:set var="fileList" value="${requestScope.list }"></c:set>
 
 <table border ="1" >
 	<tr>

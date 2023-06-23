@@ -39,8 +39,9 @@ public class BoardDao {
 					+ criteria.getStartNo()
 					+ " AND "
 					+ criteria.getEndNo();
-
-			try (Connection conn = ConnectionUtil.getConnection(); Statement stmt = conn.createStatement();) {
+			System.out.println(sql);
+			try (Connection conn = ConnectionUtil.getConnection(); 
+					Statement stmt = conn.createStatement();) {
 				ResultSet rs = stmt.executeQuery(sql);
 
 				while (rs.next()) {
@@ -185,7 +186,8 @@ public class BoardDao {
 		if (criteria.getSearchWorld() != null && !"".equals(criteria.getSearchWorld())) {
 			sql += "WHERE " + criteria.getSearchField() + " Like '%" + criteria.getSearchWorld() + "%' ";
 		}
-		try (Connection conn = ConnectionUtil.getConnection(); Statement stmt = conn.createStatement();) {
+		try (Connection conn = ConnectionUtil.getConnection(); 
+				Statement stmt = conn.createStatement();) {
 			ResultSet rs = stmt.executeQuery(sql);
 			if (rs.next()) {
 				totalCnt = rs.getInt(1);
