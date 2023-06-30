@@ -32,7 +32,7 @@
 </script>
 </head>
 <h2>파일 첨부형 게시판 - 글쓰기(Write)</h2>
-<form name="searchForm" method="post" enctype="multipart/form-data"
+<form name="wirteFrm" method="post" enctype="multipart/form-data"
       action="../mvcboard/write.do" onsubmit="return validateForm(this);">
 <table border="1" width="90%">
     <tr>

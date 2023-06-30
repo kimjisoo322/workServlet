@@ -95,7 +95,6 @@
 		 	}
 		}
 		
-		
 		// DTO 생성 
 								// idx -시퀀스 sysdate는 기본값 / 나머지는 form 전달
 		FileDto dto = new FileDto("", name, title, sb.toString(), fileName, newFileName ,"");

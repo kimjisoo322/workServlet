@@ -19,6 +19,11 @@ public class ViewController extends HttpServlet {
 		
 		mvcboardDao dao = new mvcboardDao();
 		
+		
+		// 조회수 증가(1)
+		dao.updateVisit(req.getParameter("idx"));
+		
+		//(상세보기 1개만 보여주기)
 		mvcboardDto dto =  dao.selectOne(req.getParameter("idx"));
 		
 		// request영역에 저장 req.setAttribute 

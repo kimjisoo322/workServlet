@@ -38,8 +38,7 @@
 
 <c:set var="fileList" value="${requestScope.list }"></c:set>
 
-<table border = '
-1' width = "90%">
+<table border = '1' width = "90%">
 	<tr>
 		<th>번호</th>
 		<th>제목</th>
@@ -61,12 +60,15 @@
 		<tr>
 		<td>${mvcDto.idx }</td>
 		<td>
-		<a href="../mvcboard/view.do?idx=${mvcDto.idx }">
+
+		<a href="../mvcboard/view.do?idx=${mvcDto.idx }&pageNo=${param.pageNo}">
 		${mvcDto.title }</a></td>
 		<td>${mvcDto.name }</td>
 		<td>${mvcDto.visitcount }</td>
 		<td>${mvcDto.postdate }</td>
-		<td></td>
+		<td>
+		<a href="../mvcboard/download.do?ofile=${mvcDto.ofile}&sfile=${mvcDto.sfile}">${mvcDto.ofile }</a>
+		</td>
 		</tr>
 	</c:if>
 	</c:forEach>

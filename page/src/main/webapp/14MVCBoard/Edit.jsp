@@ -27,8 +27,10 @@
 </script>
 </head>
 <h2>파일 첨부형 게시판 - 수정하기(Edit)</h2>
+
 <c:set var="dto" value="${requestScope.dto }"></c:set>
-<form name="writeFrm" method="get" enctype="multipart/form-data" action="../mvcboard/edit.do" onsubmit="return validateForm(this);">
+
+<form name="writeFrm" method="post" enctype="multipart/form-data" action="../mvcboard/edit.do" onsubmit="return validateForm(this);">
 <input type="text" name="idx" value="${ dto.idx }"/>
 <input type="text" name="prevOfile" value="${ dto.ofile }" />
 <input type="text" name="prevSfile" value="${ dto.sfile }" />

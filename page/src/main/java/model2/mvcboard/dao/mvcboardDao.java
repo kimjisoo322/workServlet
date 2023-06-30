@@ -19,27 +19,46 @@ public class mvcboardDao {
 	public mvcboardDao() {
 	}
 	
-	
+	/*
+	 * 조회수 업데이트 게시물의 조회수를 1 증가시킴
+	 */
+	public int updateVisit(String idx) {
+		int res = 0;
+		String sql = "UPDATE mvcboard SET VISITCOUNT = VISITCOUNT+1 WHERE idx = ?";
+
+		try (Connection conn = ConnectionUtil.getConnection(); 
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, idx);
+			res = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return res;
+	}
+
 	// 글쓰기 // name, title, content, ofile, pass 
-	public int insertPost(mvcboardDto mvcboard) {
+	public int insertPost(mvcboardDto dto) {
 		int res = 0;
 		String sql ="INSERT INTO MVCBOARD "
-				+ "(IDX, NAME, TITLE, CONTENT, POSTDATE, OFILE, SFILE, DOWNCOUNT, PASS, VISITCOUNT) VALUES "
-				+ "(SEQ_MVCBOARD_NUM.NEXTVAL, ?, ?, ?, SYSDATE, ?, '저장된파일4', 2, '1234', 5)";
+				+ " (IDX, NAME, TITLE, CONTENT, PASS, OFILE, SFILE) VALUES "
+				+ " (SEQ_MVCBOARD_NUM.NEXTVAL, ?, ?, ?, ?, ?, ?)";
 		 
-		System.out.println("Name value: " + mvcboard.getName());
+		System.out.println("Name value: " + dto.getName());
 		try (
 				Connection conn = ConnectionUtil.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement(sql);
 				){
-				pstmt.setString(1, mvcboard.getName());
-				pstmt.setString(2, mvcboard.getTitle());
-				pstmt.setString(3, mvcboard.getContent());
-				pstmt.setString(4, mvcboard.getOfile());
+				pstmt.setString(1, dto.getName());
+				pstmt.setString(2, dto.getTitle());
+				pstmt.setString(3, dto.getContent());
+				pstmt.setString(4, dto.getPass());
+				pstmt.setString(5, dto.getOfile());
+				pstmt.setString(6, dto.getSfile());
 				
 				res = pstmt.executeUpdate();
 				pstmt.close();
-				System.out.println("name : " + mvcboard.getName());
+				
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -47,21 +66,22 @@ public class mvcboardDao {
 	}
 	
 	// 수정하기
-	 public int updatePost(mvcboardDto mvcboard) { 
+	 public int updatePost(mvcboardDto dto) { 
 		int res = 0; 
 		String sql = "update mvcboard "
-				+ "set name = ?, title = ?, content = ?, ofile = ? where idx = ?";
+				+ " set name = ?, title = ?, content = ?, ofile = ?, sfile = ? where idx = ? ";
 		System.out.println(sql);
 		try (
 				Connection conn =ConnectionUtil.getConnection();
 				PreparedStatement pstmt =conn.prepareStatement(sql);
 				
 				) {
-				pstmt.setString(1, mvcboard.getName());
-				pstmt.setString(2, mvcboard.getTitle());
-				pstmt.setString(3, mvcboard.getContent());
-				pstmt.setString(4, mvcboard.getOfile());
-				pstmt.setString(5, mvcboard.getIdx());
+				pstmt.setString(1, dto.getName());
+				pstmt.setString(2, dto.getTitle());
+				pstmt.setString(3, dto.getContent());
+				pstmt.setString(4, dto.getOfile());
+				pstmt.setString(5, dto.getSfile());
+				pstmt.setString(6, dto.getIdx());
 				
 				res = pstmt.executeUpdate();
 				
